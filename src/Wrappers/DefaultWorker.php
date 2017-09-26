@@ -22,13 +22,15 @@ class DefaultWorker implements WorkerInterface
     /**
      * @param $queue
      * @param $job
-     * @param array $options
      * @return void
      */
-    public function process($queue, $job, array $options)
+    public function process($queue, $job)
     {
         $this->worker->process(
-            $queue, $job, $options['maxTries'], $options['delay']
+            $queue,
+            $job,
+            0, // Max tries
+            0 // Delay
         );
     }
 }

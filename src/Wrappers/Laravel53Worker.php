@@ -23,12 +23,17 @@ class Laravel53Worker implements WorkerInterface
     /**
      * @param $queue
      * @param $job
-     * @param array $options
      * @return void
      */
-    public function process($queue, $job, array $options)
+    public function process($queue, $job)
     {
-        $workerOptions = new WorkerOptions($options['delay'], 128, 60, 3, $options['maxTries']);
+        $workerOptions = new WorkerOptions(
+            0, // Delay
+            128, // Memory
+            array_get($job->getBody(), 'timeout'), // Timeout
+            3, // Sleep
+            0 // Max tries
+        );
 
         $this->worker->process(
             $queue, $job, $workerOptions

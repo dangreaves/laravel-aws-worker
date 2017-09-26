@@ -11,8 +11,7 @@ interface WorkerInterface
     /**
      * @param $queue
      * @param $job
-     * @param array $options
      * @return mixed
      */
-    public function process($queue, $job, array $options);
+    public function process($queue, $job);
 }

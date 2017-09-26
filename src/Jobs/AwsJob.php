@@ -39,7 +39,7 @@ class AwsJob extends Job implements JobContract
     public function fire()
     {
         if (method_exists($this, 'resolveAndFire')) {
-            $this->resolveAndFire(json_decode($this->getRawBody(), true));
+            $this->resolveAndFire($this->getBody());
             return;
         }
 
@@ -54,6 +54,16 @@ class AwsJob extends Job implements JobContract
     public function getRawBody()
     {
         return $this->job['Body'];
+    }
+
+    /**
+     * Get decoded body for the job.
+     *
+     * @return array
+     */
+    public function getBody()
+    {
+        return json_decode($this->job['Body'], true);
     }
 
     /**

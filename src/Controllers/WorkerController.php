@@ -83,10 +83,8 @@ class WorkerController extends LaravelController
 
         try {
             $worker->process(
-                $request->header('X-Aws-Sqsd-Queue'), $job, [
-                    'maxTries' => 0,
-                    'delay' => 0
-                ]
+                $request->header('X-Aws-Sqsd-Queue'),
+                $job
             );
         } catch (\Exception $e) {
             $exceptions->report($e);
