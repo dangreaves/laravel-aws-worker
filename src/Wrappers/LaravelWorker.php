@@ -3,16 +3,21 @@
 namespace Dusterio\AwsWorker\Wrappers;
 
 use Illuminate\Queue\Worker;
+use Dusterio\AwsWorker\Jobs\AwsJob;
 use Illuminate\Queue\WorkerOptions;
 
-/**
- * Class Laravel53Worker
- * @package Dusterio\AwsWorker\Wrappers
- */
-class Laravel53Worker implements WorkerInterface
+class LaravelWorker implements WorkerInterface
 {
     /**
-     * DefaultWorker constructor.
+     * Worker.
+     *
+     * @var Worker
+     */
+    protected $worker;
+
+    /**
+     * LaravelWorker constructor.
+     *
      * @param Worker $worker
      */
     public function __construct(Worker $worker)
@@ -21,9 +26,11 @@ class Laravel53Worker implements WorkerInterface
     }
 
     /**
-     * @param $queue
-     * @param $job
-     * @param array $options
+     * Process the given job.
+     *
+     * @param  string $queue
+     * @param  AwsJob $job
+     * @param  array  $options
      * @return void
      */
     public function process($queue, $job, array $options)

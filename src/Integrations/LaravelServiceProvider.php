@@ -2,14 +2,9 @@
 
 namespace Dusterio\AwsWorker\Integrations;
 
-use Dusterio\AwsWorker\Wrappers\DefaultWorker;
-use Dusterio\AwsWorker\Wrappers\Laravel53Worker;
-use Dusterio\AwsWorker\Wrappers\WorkerInterface;
-use Dusterio\PlainSqs\Sqs\Connector;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\QueueManager;
+use Illuminate\Support\ServiceProvider;
+use Dusterio\AwsWorker\Commands\ProcessCommand;
 
 /**
  * Class CustomQueueServiceProvider
@@ -47,5 +42,9 @@ class LaravelServiceProvider extends ServiceProvider
         $this->app->singleton(QueueManager::class, function() {
             return new QueueManager($this->app);
         });
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([ProcessCommand::class]);
+        }
     }
 }

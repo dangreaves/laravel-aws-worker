@@ -13,7 +13,7 @@ class AwsJob extends Job implements JobContract
      *
      * @var array
      */
-    protected $job;
+    public $job;
 
     /**
      * Create a new job instance.
@@ -38,11 +38,6 @@ class AwsJob extends Job implements JobContract
      */
     public function fire()
     {
-        if (method_exists($this, 'resolveAndFire')) {
-            $this->resolveAndFire(json_decode($this->getRawBody(), true));
-            return;
-        }
-
         parent::fire();
     }
 
