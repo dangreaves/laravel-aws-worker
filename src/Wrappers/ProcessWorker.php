@@ -26,6 +26,12 @@ class ProcessWorker implements WorkerInterface
             json_encode($options)
         ]);
 
-        $builder->getProcess()->mustRun();
+        $process = $builder->getProcess();
+
+        $process->setTimeout(null);
+        $process->setIdleTimeout(null);
+
+        $process->mustRun();
     }
 }
+
